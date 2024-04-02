@@ -67,7 +67,7 @@ MIDDLEWARE = [
 #     api_secret="_J2MkfDJ1DwRe1uAn5TKozXup0U"
 # )
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 STATIC_URL = "static/"
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -93,14 +93,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
 
-# CLIENT_ID = 'OdSmQCEefrRksld1o8pRTeGWAY0Md6wTPD37MTeu'
-# CLIENT_SECRET = 'Dbl6MLOdb5b5dTqE32qnmdRJmPImJS8bUX5vNVPvIqn75mwi49a6GvhFQqvVKDcRqXBQ9ag6rwEmFWJg1XvVMGJjenplandHqJc5hyhJDNmjA5nC2SwmHpvWOYhbhhT0'
+CLIENT_ID = 'OdSmQCEefrRksld1o8pRTeGWAY0Md6wTPD37MTeu'
+CLIENT_SECRET = 'Dbl6MLOdb5b5dTqE32qnmdRJmPImJS8bUX5vNVPvIqn75mwi49a6GvhFQqvVKDcRqXBQ9ag6rwEmFWJg1XvVMGJjenplandHqJc5hyhJDNmjA5nC2SwmHpvWOYhbhhT0'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -158,3 +158,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+OAUTH2_PROVIDER = {
+    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+}
