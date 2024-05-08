@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to Your Dashboard</h1>
+    <!-- Hiển thị thông tin người dùng -->
+    <p>Hello, {{ user.username }}!</p>
+    <p>Email: {{ user.email }}</p>
+
+    <!-- Nút để người dùng tạo đơn hàng mới -->
+    <form method="POST" action="{% url 'create_order' %}">
+        {% csrf_token %}
+        <button type="submit">Create New Order</button>
+    </form>
+</body>
+</html>

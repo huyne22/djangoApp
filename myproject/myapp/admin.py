@@ -56,6 +56,17 @@ class CourseAdmin(admin.ModelAdmin):
             'all': ('/static/css/style.css',)
         }
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'role', 'is_approved']
+    actions = ['approve_shippers']
+
+    def approve_shippers(self, request, queryset):
+        # Chỉ cập nhật cho các user có role là shipper
+        queryset.filter(role='shipper').update(is_approved=True)
+        self.message_user(request, "Approved selected shippers successfully.")
+
+    approve_shippers.short_description = "Approve selected shippers"
+
 admin_site = CourseAppAdminSite(name="myapp")
 
 admin_site.register(Category,CategoryAdmin)
@@ -63,3 +74,4 @@ admin_site.register(Course, CourseAdmin)
 admin_site.register(Permission)
 admin_site.register(Tag)
 admin_site.register(Lesson)
+# admin.site.register(Shipper)

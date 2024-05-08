@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
-    'oauth2_provider'
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -59,13 +59,13 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
-# import cloudinary
+import cloudinary
 
-# cloudinary.config(
-#     cloud_name="dy1unykph",
-#     api_key="238791983534257",
-#     api_secret="_J2MkfDJ1DwRe1uAn5TKozXup0U"
-# )
+cloudinary.config(
+    cloud_name="dy1unykph",
+    api_key="238791983534257",
+    api_secret="_J2MkfDJ1DwRe1uAn5TKozXup0U"
+)
 
 CORS_ALLOW_ALL_ORIGINS = True
 STATIC_URL = "static/"
@@ -99,8 +99,8 @@ REST_FRAMEWORK = {
     )
 }
 
-CLIENT_ID = 'OdSmQCEefrRksld1o8pRTeGWAY0Md6wTPD37MTeu'
-CLIENT_SECRET = 'Dbl6MLOdb5b5dTqE32qnmdRJmPImJS8bUX5vNVPvIqn75mwi49a6GvhFQqvVKDcRqXBQ9ag6rwEmFWJg1XvVMGJjenplandHqJc5hyhJDNmjA5nC2SwmHpvWOYhbhhT0'
+CLIENT_ID = "gRhC8z5T5NNBiESCV0qo15r9z1YwVFUa6yzbKEnH"
+CLIENT_SECRET = "nulbEPeFKCpx73ooDyPYiQefRknkv8jaKbgAOnqhd2sf4zqSctmu4OyOpDfInpu8LaMCmrei5us7NF07qycchSQjYtKyYvPSQNK5XDyn5wjFaPMBVMb0O0I0IUnHZACl"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -158,6 +158,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-OAUTH2_PROVIDER = {
-    'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
-}
+# OAUTH2_PROVIDER = {
+#     'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+# }
