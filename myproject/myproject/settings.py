@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = '%s/myapp/static/' % BASE_DIR
@@ -56,15 +54,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 import cloudinary
 
 cloudinary.config(
-    cloud_name="dy1unykph",
-    api_key="238791983534257",
-    api_secret="_J2MkfDJ1DwRe1uAn5TKozXup0U"
+    cloud_name="ddze7asgu",
+    api_key="287253477565595",
+    api_secret="IfZHy4Eo6qATCRCAFHPu4qjLFjA"
 )
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -96,11 +94,12 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
-CLIENT_ID = "gRhC8z5T5NNBiESCV0qo15r9z1YwVFUa6yzbKEnH"
-CLIENT_SECRET = "nulbEPeFKCpx73ooDyPYiQefRknkv8jaKbgAOnqhd2sf4zqSctmu4OyOpDfInpu8LaMCmrei5us7NF07qycchSQjYtKyYvPSQNK5XDyn5wjFaPMBVMb0O0I0IUnHZACl"
+CLIENT_ID = "r2wqmWSYcafa381xFbLGkYHiZioAxQU83Hm2lUe8"
+CLIENT_SECRET = "Mix4MtRK5u4dgWOSt3n30JytPZIO3ZIJsvT2W4ZrwQd7aBIYmLoH8NbR92l562OsYL6ndYhYBh82JqGycH8mAKSXO0b94SEqJQqXiIa0ckCcpJqXCXnSbs2AGUhSxAAy"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -108,7 +107,7 @@ CLIENT_SECRET = "nulbEPeFKCpx73ooDyPYiQefRknkv8jaKbgAOnqhd2sf4zqSctmu4OyOpDfInpu
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myAppdb',
+        'NAME': 'myApp1',
         'USER': 'root',
         'PASSWORD': 'luonghuy2k2',
         'HOST': ''

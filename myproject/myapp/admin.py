@@ -1,77 +1,44 @@
-from django import forms
 from django.contrib import admin
-from django.template.response import TemplateResponse
-from django.urls import path
-from django.utils.html import mark_safe
-from .models import Category, Course, Tag, Lesson
+from .models import User, Shipper, Order, Review, Auction
 from django.contrib.auth.models import Permission
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .dao import count_course_by_cate
 
+class AppAdminSite(admin.AdminSite):
+    site_header = "Hệ thống quản lý giao hàng"
 
-class CourseAppAdminSite(admin.AdminSite):
-    site_header = "KHÓA HỌC TRỰC TUYẾN"
-
-    def get_urls(self):
-        return [
-                   path('course-stats/', self.stats_view)
-               ] + super().get_urls()
-
-    def stats_view(self, request):
-        stats = count_course_by_cate()
-        return TemplateResponse(request, 'admin/stats_view.html',{
-            'stats': stats
-        })
+    # def get_urls(self):
+    #     return [
+    #                    path('course-stats/', self.stats_view)
+    #            ] + super().get_urls()
+    #
+    # def stats_view(self, request):
+    #     stats = count_course_by_cate()
+    #     return TemplateResponse(request, 'admin/stats_view.html',{
+    #         'stats': stats
+    #     })
 
 # Register your models here.
-class CourseTagInlineAdmin(admin.TabularInline):
-    model = Course.tags.through
-
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name']
-    list_filter = ['id', 'name']
-    search_fields = ['name']
-
-class CourseForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorUploadingWidget)
-
-    class Meta:
-        model = Course
-        fields = '__all__'
-
-class CourseAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'description']
-    readonly_fields = ['img']
-    form = CourseForm
-    inlines = [CourseTagInlineAdmin]
-    def img(self, obj):
-        if obj:
-            return mark_safe(
-                '<img src="/static/{url}" width="120" />'\
-                    .format(url=obj.image.name)
-            )
-
-    class Media:
-        css = {
-            'all': ('/static/css/style.css',)
-        }
+# class CourseTagInlineAdmin(admin.TabularInline):
+#     model = Course.tags.through
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'role', 'is_approved']
-    actions = ['approve_shippers']
+    list_display = ['id', 'username','email','user_type','avatar']
 
-    def approve_shippers(self, request, queryset):
-        # Chỉ cập nhật cho các user có role là shipper
-        queryset.filter(role='shipper').update(is_approved=True)
-        self.message_user(request, "Approved selected shippers successfully.")
+class ShipperAdmin(admin.ModelAdmin):
+    list_display = ['id', 'avatar','user_id','is_confirmed']
 
-    approve_shippers.short_description = "Approve selected shippers"
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user_id','shipper_id','title','description','is_completed']
 
-admin_site = CourseAppAdminSite(name="myapp")
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user_id', 'shipper_id', 'rating', 'comment']
+class AuctionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'order_id','shipper_id','bid_price']
 
-admin_site.register(Category,CategoryAdmin)
-admin_site.register(Course, CourseAdmin)
+admin_site = AppAdminSite(name="myapp")
+
+admin_site.register(User,UserAdmin)
+admin_site.register(Shipper,ShipperAdmin)
+admin_site.register(Order,OrderAdmin)
+admin_site.register(Review,ReviewAdmin)
+admin_site.register(Auction,AuctionAdmin)
 admin_site.register(Permission)
-admin_site.register(Tag)
-admin_site.register(Lesson)
-# admin.site.register(Shipper)

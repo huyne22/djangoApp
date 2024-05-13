@@ -14,12 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, re_path, include
+from myapp.admin import admin_site
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from myapp.admin import admin_site
+from myapp.views import UserRegistrationView
 schema_view = get_schema_view(
     openapi.Info(
         title="Course API",
@@ -32,21 +32,15 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-# router = routers.DefaultRouter()
-# router.register(r'categories', views.CategoryViewSet, basename='categories')
-# # router.register('categories', views.CategoryViewSet, basename="categories")
-# router.register('courses', views.CourseViewSet, basename="courses")
-# router.register('lessons', views.LessonViewSet, basename="lessons")
-# router.register('users', views.UserViewSet, basename="users")
-
 urlpatterns = [
     path('', include('myapp.urls')),
     path('admin/', admin_site.urls),
+    path('register/', UserRegistrationView.as_view(), name='user_registration'),
     path('o/', include('oauth2_provider.urls',
     namespace='oauth2_provider')),
     # path('categories/add_category/', views.CategoryViewSet.as_view({'post': 'add_category'}), name='add-category'),
 
-    # re_path(r'^ckeditor/',include('ckeditor_uploader.urls')),
+    re_path(r'^ckeditor/',include('ckeditor_uploader.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
     schema_view.without_ui(cache_timeout=0),
