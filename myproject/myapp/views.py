@@ -43,9 +43,10 @@ class UserViewSet(viewsets.ViewSet, generics.ListCreateAPIView):
 
     @action(methods=['put'], url_path="update", detail=False)
     def update_current_user(self, request):
-        if 'avatar' in request.data:
+        if 'avatar' in request.FILES:
             user = request.user
-            user.avatar = request.data['avatar']
+            avatar_file = request.FILES['avatar']
+            user.avatar = avatar_file
             user.save()
             return Response({"message": "Avatar updated successfully"}, status=status.HTTP_200_OK)
         else:
@@ -264,7 +265,7 @@ class OrderViewSet(viewsets.ViewSet, generics.ListAPIView):
             # Lọc các đơn hàng chưa được đấu giá bằng cách loại bỏ các ID đã được shipper đấu giá
             orders_not_auction = Order.objects.exclude(id__in=orders_auctioned)
 
-            if not request.user.user_type == "admin":
+            if not request.user.user_type == "admin" and not request.user.user_type == "shipper":
                 return Response({"error": "You do not have permission to confirm shippers."},
                                 status=status.HTTP_403_FORBIDDEN)
 
